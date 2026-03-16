@@ -1,0 +1,998 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Brand Reality Check by FutureBrand</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --black:    #000000;
+  --white:    #ffffff;
+  --green:    #00ac42;
+  --offwhite: #f5f5f5;
+  --card:     #efefef;
+  --dark:     #111111;
+  --muted:    #888888;
+}
+
+html, body { height: 100%; }
+
+body {
+  font-family: 'Inter', Arial, sans-serif;
+  background: var(--white);
+  color: var(--black);
+  min-height: 100vh;
+}
+
+/* ── PROGRESS BAR ── */
+#prog { position: fixed; top: 0; left: 0; right: 0; height: 4px; background: rgba(0,0,0,.1); z-index: 200; display: none; }
+#prog-fill { height: 100%; background: var(--green); transition: width .4s ease; width: 0%; }
+
+/* ── SCREENS ── */
+.screen { display: none; min-height: 100vh; animation: fadeUp .3s ease; }
+.screen.active { display: flex; }
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.wrap {
+  width: 100%; max-width: 880px;
+  margin: 0 auto; padding: 80px 50px;
+  display: flex; flex-direction: column;
+  justify-content: center;
+}
+
+/* ── BUTTONS ── */
+.btn {
+  display: inline-block; padding: 18px 52px;
+  background: var(--black); color: var(--white);
+  border: none; border-radius: 0;
+  font-family: 'Inter', Arial, sans-serif;
+  font-size: .9rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: .1em;
+  cursor: pointer; text-decoration: none;
+  transition: background .15s, transform .15s;
+}
+.btn:hover { background: #222; transform: translateY(-2px); }
+.btn-ghost {
+  background: transparent; color: var(--white);
+  border: 2px solid rgba(255,255,255,.5);
+}
+.btn-ghost:hover { background: rgba(255,255,255,.1); transform: translateY(-2px); }
+
+/* ── LANDING ── */
+#s-landing {
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 80px;
+  background: var(--white);
+}
+
+/* FutureBrand Logo Lockup */
+.fb-logo {
+  display: flex; align-items: center; gap: 14px;
+  margin-bottom: 80px;
+}
+.fb-mono {
+  width: 28px; height: auto; flex-shrink: 0;
+}
+.fb-wordmark {
+  font-size: 1.1rem; font-weight: 900;
+  letter-spacing: .14em; color: var(--black);
+  text-transform: uppercase;
+}
+
+/* Landing headline */
+.h-main {
+  font-size: clamp(3rem, 8vw, 5.8rem);
+  font-weight: 900; color: var(--black);
+  line-height: 1.0; margin-bottom: 30px;
+  max-width: 820px; letter-spacing: -.03em;
+  text-transform: uppercase;
+}
+.pill-txt {
+  display: inline-block;
+  border: 4px solid var(--black);
+  border-radius: 999px;
+  padding: 2px 22px 6px;
+  line-height: 1.1;
+}
+.landing-sub {
+  font-size: .95rem; font-weight: 500;
+  letter-spacing: .06em; text-transform: uppercase;
+  color: var(--muted); margin-bottom: 60px;
+}
+.by-line {
+  font-size: .78rem; font-weight: 800;
+  letter-spacing: .14em; text-transform: uppercase;
+  color: var(--green); margin-bottom: 10px;
+}
+
+/* ── INTRO ── */
+.s-intro { flex-direction: column; justify-content: center; background: var(--white); }
+.s-intro .wrap { justify-content: center; }
+.h-bold {
+  font-size: clamp(1.9rem, 5vw, 3.4rem);
+  font-weight: 900; color: var(--black);
+  line-height: 1.08; margin-bottom: 28px;
+  letter-spacing: -.02em;
+}
+.h-bold .pill-txt {
+  display: inline-block;
+  border: 3px solid var(--black);
+  border-radius: 999px;
+  padding: 0 14px 4px;
+}
+.stamp-pink { font-weight: 800; text-transform: uppercase; letter-spacing: .07em; color: var(--green); font-size: .85rem; margin-bottom: 28px; }
+.stamp-pink-lg { font-weight: 800; text-transform: uppercase; letter-spacing: .07em; color: var(--green); font-size: .95rem; line-height: 1.65; margin-bottom: 28px; }
+.body-text { font-size: .98rem; line-height: 1.82; color: #555; max-width: 680px; margin-bottom: 18px; }
+.warning-block { border-left: 4px solid var(--black); padding: 4px 0 4px 28px; margin: 36px 0 48px; }
+.warning-title { font-weight: 900; font-size: 1rem; color: var(--black); text-transform: uppercase; letter-spacing: .14em; margin-bottom: 10px; }
+.warning-body { font-size: .95rem; color: #666; }
+
+/* ── TENSION INTRO ── */
+.s-tension { background: var(--black); color: var(--white); flex-direction: column; justify-content: center; }
+.s-tension .wrap { max-width: 100%; padding: 90px 80px; }
+.t-eyebrow { font-size: .75rem; font-weight: 700; text-transform: uppercase; letter-spacing: .2em; color: var(--green); margin-bottom: 30px; }
+.t-title { font-size: clamp(2.5rem, 6vw, 5rem); font-weight: 900; line-height: 1.0; margin-bottom: 22px; letter-spacing: -.02em; text-transform: uppercase; }
+.t-subtitle { font-size: 1.1rem; font-weight: 600; opacity: .7; margin-bottom: 20px; }
+.t-desc { font-size: .95rem; line-height: 1.78; opacity: .6; max-width: 660px; margin-bottom: 58px; }
+
+/* ── QUESTION ── */
+.s-q { flex-direction: column; background: var(--white); }
+.s-q .wrap { justify-content: flex-start; padding-top: 60px; }
+.q-counter { font-size: .72rem; font-weight: 700; text-transform: uppercase; letter-spacing: .15em; color: #bbb; margin-bottom: 16px; }
+.q-title { font-size: clamp(1.3rem, 3.2vw, 1.85rem); font-weight: 800; color: var(--black); line-height: 1.28; margin-bottom: 16px; max-width: 780px; letter-spacing: -.01em; }
+.q-sub-grunge { font-weight: 800; color: var(--green); font-size: .78rem; margin-bottom: 32px; text-transform: uppercase; letter-spacing: .1em; }
+.q-sub-stamp  { font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); font-size: .75rem; margin-bottom: 32px; }
+
+/* ── GRID 4 ── */
+.grid4 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px; }
+.card4 { background: var(--card); border-radius: 4px; padding: 34px 20px 26px; text-align: center; cursor: pointer; border: 2px solid transparent; transition: all .2s; user-select: none; }
+.card4:hover { background: #e4e4e4; transform: translateY(-2px); }
+.card4.sel { border-color: var(--green); background: var(--white); }
+.card4.dim .c4-icon, .card4.dim .c4-label { opacity: .18 !important; }
+.c4-icon { font-size: 1.8rem; color: var(--black); margin-bottom: 12px; }
+.c4-label { font-size: .9rem; font-weight: 800; color: var(--black); margin-bottom: 7px; line-height: 1.25; text-transform: uppercase; letter-spacing: .03em; }
+.c4-desc { font-size: .77rem; color: var(--muted); line-height: 1.4; }
+.card4.sel .c4-icon { color: var(--green); }
+.card4.sel .c4-label { color: var(--green); }
+
+/* ── GRID 2 ── */
+.grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px; }
+.card2 { background: var(--card); border-radius: 4px; padding: 54px 24px 44px; text-align: center; cursor: pointer; border: 2px solid transparent; transition: all .2s; user-select: none; }
+.card2:hover { background: #e4e4e4; transform: translateY(-2px); }
+.card2.sel { border-color: var(--green); background: var(--white); }
+.card2.dim .c2-icon, .card2.dim .c2-label { opacity: .15 !important; }
+.c2-icon { font-size: 2.2rem; color: #ccc; margin-bottom: 16px; transition: color .2s; }
+.c2-label { font-size: .9rem; font-weight: 800; color: #aaa; line-height: 1.3; text-transform: uppercase; letter-spacing: .03em; transition: color .2s; }
+.card2.sel .c2-icon { color: var(--black); }
+.card2.sel .c2-label { color: var(--green); }
+
+/* ── SLIDER ── */
+.slider-box { background: var(--card); border-radius: 4px; padding: 28px 28px 22px; margin-bottom: 16px; }
+input[type=range] {
+  width: 100%; -webkit-appearance: none; appearance: none;
+  height: 5px; border-radius: 0;
+  background: linear-gradient(to right, var(--black), var(--green));
+  outline: none; cursor: pointer; margin-bottom: 20px;
+}
+input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none; width: 26px; height: 26px; border-radius: 50%;
+  background: var(--white); border: 3px solid var(--black);
+  cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,.18);
+}
+input[type=range]::-moz-range-thumb {
+  width: 26px; height: 26px; border-radius: 50%;
+  background: var(--white); border: 3px solid var(--black);
+  cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,.18);
+}
+.slider-labels { display: flex; justify-content: space-between; gap: 4px; }
+.sl-lbl { flex: 1; text-align: center; font-size: .68rem; font-weight: 700; color: #ccc; border-radius: 2px; padding: 4px 3px; transition: all .15s; text-transform: uppercase; letter-spacing: .04em; }
+.sl-lbl.on { background: rgba(0,0,0,.06); color: var(--black); }
+.slider-val { font-size: 1.55rem; font-weight: 900; color: var(--black); text-align: center; margin: 18px 0 8px; padding: 18px; border-radius: 2px; background: rgba(0,0,0,.04); border: 2px solid rgba(0,0,0,.08); text-transform: uppercase; letter-spacing: .04em; }
+.btn-next { display: block; margin-left: auto; margin-top: 12px; padding: 15px 46px; background: var(--black); color: var(--white); border: none; border-radius: 0; font-family: 'Inter', Arial, sans-serif; font-size: .88rem; font-weight: 700; cursor: pointer; text-transform: uppercase; letter-spacing: .1em; transition: all .2s; }
+.btn-next:hover { background: #333; }
+
+/* ── RESULTS ── */
+#s-results { flex-direction: column; background: var(--offwhite); }
+#s-results .wrap { justify-content: flex-start; }
+.results-hd { margin-bottom: 35px; }
+.results-hd h2 { font-size: clamp(2rem, 5vw, 3rem); font-weight: 900; color: var(--black); margin-bottom: 10px; text-transform: uppercase; letter-spacing: -.02em; }
+.results-hd p { font-size: .98rem; color: #666; }
+.overall-box { display: flex; align-items: center; gap: 28px; background: var(--white); border-radius: 4px; padding: 30px 32px; margin-bottom: 24px; border: 1px solid #e0e0e0; }
+.score-bubble { width: 112px; height: 112px; border-radius: 50%; background: var(--black); flex-shrink: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+.score-num { font-size: 2.4rem; font-weight: 900; color: var(--white); line-height: 1; }
+.score-sub { font-size: .68rem; color: rgba(255,255,255,.5); text-transform: uppercase; letter-spacing: .06em; }
+.overall-msg h3 { font-size: 1.3rem; font-weight: 900; color: var(--black); margin-bottom: 8px; text-transform: uppercase; letter-spacing: -.01em; }
+.overall-msg p { font-size: .94rem; color: #555; line-height: 1.72; }
+.t-rows { display: flex; flex-direction: column; gap: 12px; margin-bottom: 36px; }
+
+/* ── DIMENSION RESULT CARD ── */
+.t-row {
+  background: var(--white); border-radius: 4px;
+  padding: 22px 26px 0; overflow: hidden;
+  border: 1px solid #e8e8e8;
+}
+.t-row-top {
+  display: flex; align-items: center; gap: 18px; margin-bottom: 14px;
+}
+.t-row-info { flex: 1; }
+.t-row-name { font-size: .82rem; font-weight: 800; color: #222; margin-bottom: 9px; text-transform: uppercase; letter-spacing: .05em; }
+.bar-bg { height: 5px; background: #eee; border-radius: 0; overflow: hidden; }
+.bar-fg { height: 100%; border-radius: 0; transition: width 1.2s ease; }
+.t-score { font-size: 1.25rem; font-weight: 900; min-width: 50px; text-align: right; }
+.t-badge { font-size: .66rem; font-weight: 800; padding: 5px 13px; border-radius: 20px; min-width: 138px; text-align: center; flex-shrink: 0; text-transform: uppercase; letter-spacing: .04em; }
+
+/* Insight text under each dimension */
+.t-row-insight {
+  font-size: .87rem; line-height: 1.65; color: #555;
+  padding: 14px 0 20px;
+  border-top: 1px solid #f0f0f0;
+  margin-top: 2px;
+}
+
+/* Rating colours */
+.r-crit  { color: #c0001a; } .rb-crit  { color: #c0001a; background: #ffeaea; } .bf-crit  { background: #d9001b; }
+.r-watch { color: #bf5800; } .rb-watch { color: #bf5800; background: #fff1e6; } .bf-watch { background: #e06800; }
+.r-track { color: #967200; } .rb-track { color: #967200; background: #fffbe6; } .bf-track { background: #efc019; }
+.r-good  { color: #006030; } .rb-good  { color: #006030; background: #e6f9ef; } .bf-good  { background: var(--green); }
+
+.cta-box { background: var(--black); color: var(--white); border-radius: 4px; padding: 48px; text-align: center; }
+.cta-box h3 { font-size: 1.65rem; font-weight: 900; margin-bottom: 12px; text-transform: uppercase; letter-spacing: -.01em; }
+.cta-box p  { font-size: .94rem; opacity: .72; margin-bottom: 28px; line-height: 1.7; max-width: 520px; margin-left: auto; margin-right: auto; }
+
+/* ── FOOTER LOGO ── */
+.results-footer {
+  display: flex; align-items: center; justify-content: center;
+  gap: 12px; padding: 32px 0 8px; opacity: .4;
+}
+.results-footer .fb-mono { width: 18px; }
+.results-footer .fb-wordmark { font-size: .78rem; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 620px) {
+  #s-landing { padding: 52px 28px; }
+  .wrap { padding: 50px 22px; }
+  .s-tension .wrap { padding: 60px 28px; }
+  .grid4, .grid2 { gap: 10px; }
+  .card4 { padding: 26px 12px 20px; }
+  .card2 { padding: 40px 12px 32px; }
+  .overall-box { flex-direction: column; text-align: center; }
+  .t-row-top { flex-wrap: wrap; }
+  .t-badge { min-width: 0; }
+  .h-main .pill-txt { padding: 2px 14px 4px; }
+}
+</style>
+</head>
+<body>
+
+<div id="prog"><div id="prog-fill"></div></div>
+
+<!-- LANDING -->
+<div class="screen active" id="s-landing">
+  <!-- FutureBrand Logo -->
+  <div class="fb-logo">
+    <svg class="fb-mono" viewBox="0 0 38 46" xmlns="http://www.w3.org/2000/svg" fill="#000">
+      <circle cx="6.5" cy="6.5" r="5.5"/>
+      <circle cx="19"  cy="6.5" r="5.5"/>
+      <circle cx="31.5" cy="6.5" r="5.5"/>
+      <circle cx="6.5" cy="23" r="5.5"/>
+      <circle cx="19"  cy="23" r="5.5"/>
+      <circle cx="6.5" cy="39.5" r="5.5"/>
+    </svg>
+    <span class="fb-wordmark">FutureBrand</span>
+  </div>
+
+  <p class="by-line">Brand Diagnostic Tool</p>
+  <h1 class="h-main">Brand<br><span class="pill-txt">Reality Check</span></h1>
+  <p class="landing-sub">How well does your brand actually work in practice?</p>
+  <button class="btn" onclick="nav('s-intro1')">Let's find out</button>
+</div>
+
+<!-- INTRO 1 -->
+<div class="screen s-intro" id="s-intro1">
+  <div class="wrap">
+    <h2 class="h-bold">Most brands look better on paper than <span class="pill-txt">in practice.</span></h2>
+    <p class="stamp-pink">WE WANT TO SEE WHERE YOUR BRAND IS REALLY WORKING — AND WHERE IT ISN'T.</p>
+    <p class="body-text">We've worked across dozens of organisations on brand strategy, experience design, and transformation. The gaps we find? Remarkably consistent. Decisions made in silos. Leadership that doesn't connect brand to business value. Execution that drifts from strategy the moment it hits the real world.</p>
+    <p class="body-text">This diagnostic shows you where the pressure points are — and where your foundations are solid. You'll see your results straight away, no strings attached. If you'd like our perspective, feel free to share your details at the end.</p>
+    <div style="margin-top:38px"><button class="btn" onclick="nav('s-intro2')">Got it</button></div>
+  </div>
+</div>
+
+<!-- INTRO 2 -->
+<div class="screen s-intro" id="s-intro2">
+  <div class="wrap">
+    <h2 class="h-bold">Here's how this works:</h2>
+    <p class="stamp-pink-lg">30 questions across 10 brand dimensions.<br>Takes about 10 minutes.</p>
+    <p class="body-text">We'll ask direct questions about how your brand actually operates — not how it's supposed to. Some will be uncomfortable. That's the point. Answer based on what's genuinely happening, not the strategy deck or last year's brand refresh.</p>
+    <div class="warning-block">
+      <div class="warning-title">Warning</div>
+      <p class="warning-body">If you're looking for a quiz that confirms what you already believe, this probably isn't it.</p>
+    </div>
+    <button class="btn" onclick="startQuiz()">I can handle it</button>
+  </div>
+</div>
+
+<!-- RESULTS -->
+<div class="screen" id="s-results">
+  <div class="wrap" id="results-wrap"></div>
+</div>
+
+<!-- Dynamic screens -->
+<div id="dyn"></div>
+
+<script>
+/* ─────────────────────────────────────────────
+   QUIZ DATA  (10 tensions × 3 questions = 30)
+   Per-dimension max score: 12 (3 × 4)
+   Grand total max: 120
+
+   resultText keys: crit (3-4), watch (5-7), track (8-10), good (11-12)
+───────────────────────────────────────────── */
+const TENSIONS = [
+  {
+    id:1,
+    title:"Organisation & Decision-Making",
+    sub:"Understanding who holds the power — and how decisions actually get made.",
+    desc:"Brand consistency lives or dies by how decisions are made. If accountability is blurry or the approval chain is long, your brand will feel it — in diluted outputs, missed moments, and work that no one fully owns.",
+    resultText:{
+      crit:"Brand decisions have no clear owner. Expect diluted outcomes, delayed approvals, and work that satisfies everyone but serves no one. This is one of the highest-cost structural problems a brand can have.",
+      watch:"Decision-making is slowing brand down. The right people may be involved — but the process is costing you speed and coherence. Unclear ownership tends to produce work that's been compromised rather than considered.",
+      track:"Accountability is mostly clear, but complexity still creates drag. Tightening ownership at the edges — particularly for time-sensitive or cross-functional decisions — would improve both speed and output quality.",
+      good:"You have the decision-making architecture to move fast and stay consistent. Clear ownership, appropriate involvement, and a sponsor who's genuinely engaged: this is a real competitive advantage."
+    },
+    questions:[
+      {
+        text:"When a significant brand or customer experience decision needs to be made, who has the final say — and how many people are involved in getting there?",
+        hint:"THIS IS ABOUT ACCOUNTABILITY, NOT HEADCOUNT.", hintStyle:"stamp", type:"cards4",
+        opts:[
+          {e:"🌀",l:"Many people,\nno clear owner",d:"Everyone's involved, nothing moves",s:1},
+          {e:"🐌",l:"A committee\nthat takes time",d:"Slow, layered sign-off",s:2},
+          {e:"✋",l:"A couple of\nkey people",d:"Generally clear, occasionally messy",s:3},
+          {e:"🎯",l:"One clear\ndecision-maker",d:"Fast, accountable, clean",s:4}
+        ]
+      },
+      {
+        text:"Is there a named executive sponsor for your brand? If so, how actively are they involved in day-to-day brand decisions?",
+        hint:"NOT THE PERSON ON THE INTRANET PAGE. THE REAL ONE.", hintStyle:"grunge", type:"cards4",
+        opts:[
+          {e:"👻",l:"No named\nsponsor",d:"Brand ownership is unclear",s:1},
+          {e:"🪑",l:"Named but\nnot active",d:"Exists on paper",s:2},
+          {e:"📅",l:"Involved\noccasionally",d:"Shows up for big moments",s:3},
+          {e:"🔥",l:"Actively\nengaged",d:"Present and influential",s:4}
+        ]
+      },
+      {
+        text:"How often does organisational complexity slow down or dilute brand outcomes?",
+        hint:"BE HONEST ABOUT THE REAL COST.", hintStyle:"grunge", type:"slider",
+        opts:["Constantly","Often","Sometimes","Rarely"]
+      }
+    ]
+  },
+  {
+    id:2,
+    title:"Culture",
+    sub:"You can't manage what you can't see — especially when you're inside it.",
+    desc:"Culture is the operating system your brand runs on. When the internal experience contradicts the external promise, customers feel it — even if they can't name it. This section surfaces the gap between the culture you describe and the one that actually shows up.",
+    resultText:{
+      crit:"There's a meaningful gap between the culture your leadership describes and the one people actually experience. Customers encounter this gap too — in interactions, responses, and moments where the brand promise meets operational reality.",
+      watch:"Cultural signals are mixed. What gets rewarded doesn't consistently align with what the brand needs. This creates inconsistency that no amount of guidelines can paper over.",
+      track:"Culture broadly supports the brand — but there are patterns worth examining. How your organisation handles failure and what it actually rewards will define the ceiling of your brand experience.",
+      good:"Your culture is a genuine brand asset. The internal experience reflects the external promise, and that alignment is rare. It compounds — over time, it becomes very hard to compete with."
+    },
+    questions:[
+      {
+        text:"How would a new employee describe your culture after 90 days — and how does that compare to what leadership would say?",
+        hint:"WHAT WOULD THEY ACTUALLY SAY?", hintStyle:"grunge", type:"cards4",
+        opts:[
+          {e:"🚨",l:"Very\ndifferent stories",d:"Major perception gap",s:1},
+          {e:"🔀",l:"Some\nmisalignment",d:"Leadership view is rosier",s:2},
+          {e:"🙂",l:"Mostly\naligned",d:"Minor differences",s:3},
+          {e:"✅",l:"Completely\naligned",d:"What you say is what they see",s:4}
+        ]
+      },
+      {
+        text:"When things go wrong internally, what's the default response: fix it quietly, escalate it, or learn from it openly?",
+        hint:"THINK ABOUT THE LAST TIME SOMETHING ACTUALLY WENT WRONG.", hintStyle:"grunge", type:"cards4",
+        opts:[
+          {e:"🤫",l:"Sweep it\nunder the rug",d:"Problems disappear quietly",s:1},
+          {e:"🔧",l:"Fix it quietly,\nmove on",d:"Solved, but not shared",s:2},
+          {e:"📣",l:"Escalate\nupward",d:"Senior leaders deal with it",s:3},
+          {e:"📖",l:"Learn from\nit openly",d:"Shared, discussed, improved",s:4}
+        ]
+      },
+      {
+        text:"When speed and quality come into direct conflict — a deadline, a tight brief, a resource constraint — which one typically wins?",
+        hint:"WHAT ACTUALLY GETS PRIORITISED WHEN THERE'S NO EASY ANSWER?", hintStyle:"grunge", type:"slider",
+        opts:["Speed, always","Usually speed","Usually quality","Quality, always"]
+      }
+    ]
+  },
+  {
+    id:3,
+    title:"Focus & Alignment",
+    sub:"Strategy is only as good as its staying power under pressure.",
+    desc:"The biggest threat to brand strategy isn't competition — it's internal drift. When teams chase different metrics, react to every external signal, or can't make clear trade-offs when priorities shift, brand coherence quietly erodes.",
+    resultText:{
+      crit:"Your brand is at risk of reactive drift. Without shared metrics and the discipline to make clear trade-offs, every external pressure becomes a strategic detour. Consistency requires more than intent — it requires structure.",
+      watch:"Alignment exists in pockets. Marketing may be focused, but the rest of the organisation is running on different measures of success. That divergence shows up in the brand experience, even when it's invisible internally.",
+      track:"The foundations of alignment are in place. The work now is building consistency — so that strategic focus holds when things get complicated and trade-offs need to be made explicitly.",
+      good:"Shared focus is one of the hardest things to build and maintain in a complex organisation. You have it. The metric alignment and trade-off discipline here are real advantages — protect them."
+    },
+    questions:[
+      {
+        text:"If a competitor makes a bold move tomorrow, how likely is your team to react immediately versus staying the course?",
+        hint:"YOUR GUT ANSWER IS PROBABLY THE RIGHT ONE.", hintStyle:"grunge", type:"slider",
+        opts:["React immediately","Likely to pivot","Discuss, then decide","Stay the course"]
+      },
+      {
+        text:"Do you have a small set of metrics that everyone — from marketing to operations — uses to measure brand success?",
+        hint:"NOT MARKETING'S METRICS. EVERYONE'S.", hintStyle:"stamp", type:"cards4",
+        opts:[
+          {e:"❓",l:"No shared\nmetrics",d:"Every team measures differently",s:1},
+          {e:"📊",l:"Marketing\nhas them",d:"Others use their own",s:2},
+          {e:"🔗",l:"Most teams\nroughly aligned",d:"Close, but inconsistent",s:3},
+          {e:"🎯",l:"Clear shared\nmetrics",d:"Universally understood and used",s:4}
+        ]
+      },
+      {
+        text:"When strategic priorities shift, how clearly does the organisation decide what to stop or de-prioritise to make room for them?",
+        hint:"ADDING PRIORITIES WITHOUT REMOVING THEM ISN'T STRATEGY.", hintStyle:"stamp", type:"cards4",
+        opts:[
+          {e:"📦",l:"Everything stays,\nnew stuff just piles on",d:"No trade-offs made",s:1},
+          {e:"🤔",l:"Discussed but\nrarely resolved",d:"Good intentions, fuzzy outcomes",s:2},
+          {e:"✂️",l:"Some things\nget dropped",d:"Trade-offs happen, inconsistently",s:3},
+          {e:"⚖️",l:"Clear and\nexplicit trade-offs",d:"New priority means something stops",s:4}
+        ]
+      }
+    ]
+  },
+  {
+    id:4,
+    title:"Silos",
+    sub:"The question isn't whether they exist — it's whether they're costing you.",
+    desc:"Silos are the default state of most organisations. The damage they do to brand is rarely dramatic — it's the slow accumulation of disconnected decisions, duplicated work, and customer experiences that feel like they came from different companies.",
+    resultText:{
+      crit:"Silos are actively costing you. Customers are experiencing the gaps between your teams — even if those teams don't see each other. The brand experience is being assembled from disconnected parts, and it shows.",
+      watch:"Cross-team friction is creating rework and inconsistency. The customer journey doesn't respect your org chart, but right now your org chart isn't respecting the customer journey either.",
+      track:"Collaboration is improving, but there are still blind spots. The useful question: where in the customer experience does something get handed between teams — and what happens in that handover?",
+      good:"Cross-functional alignment is genuinely working here. The ability to talk about the customer across team boundaries — not just within them — is one of the rarest and most valuable organisational capabilities."
+    },
+    questions:[
+      {
+        text:"When you think about your role, what impact does your work have on teams outside your own?",
+        hint:"THINK UPSTREAM AND DOWNSTREAM.", hintStyle:"stamp", type:"cards4",
+        opts:[
+          {e:"🏝️",l:"Minimal —\nwe work alone",d:"Low interdependency",s:1},
+          {e:"🔗",l:"Some occasional\ncrossover",d:"Ad hoc connections",s:2},
+          {e:"🤝",l:"Regular inter-\ndependencies",d:"Work routinely overlaps",s:3},
+          {e:"🌐",l:"Deep cross-team\nimpact",d:"Highly interconnected",s:4}
+        ]
+      },
+      {
+        text:"Can you name a recent decision made in one team that created friction or rework for another?",
+        hint:"IF YOU CAN NAME IT IMMEDIATELY, THAT'S DATA.", hintStyle:"grunge", type:"cards2",
+        opts:[
+          {e:"😬",l:"Yes — happens\nall the time",d:"Silo tax is real here",s:1},
+          {e:"😌",l:"Rarely —\nwe communicate well",d:"Cross-team alignment is strong",s:4}
+        ]
+      },
+      {
+        text:"How often do different parts of the business sit down to talk about the customer — not just their own metrics?",
+        hint:"NOT A TOWN HALL. AN ACTUAL CONVERSATION ABOUT CUSTOMERS.", hintStyle:"grunge", type:"slider",
+        opts:["Never","Rarely","Sometimes","Regularly"]
+      }
+    ]
+  },
+  {
+    id:5,
+    title:"Leadership",
+    sub:"Hard skills run the business. Soft skills determine how the brand actually behaves.",
+    desc:"Leadership sets the ceiling for brand. When commercial leaders don't speak brand, or when brand leaders can't speak commercial, the gap between strategy and execution widens. This section looks at how leadership shapes brand — intentionally or not.",
+    resultText:{
+      crit:"Brand doesn't have a meaningful seat at the leadership table. Without commercial language and executive conviction, brand investment will continue to be undervalued — and undersupported when it matters most.",
+      watch:"Some leaders get it. Others don't. That inconsistency filters directly into how brand is funded, prioritised, and defended when it competes with short-term commercial pressure.",
+      track:"Leadership broadly understands brand's role in business performance. The opportunity is to make that connection more explicit, more consistent, and more present in commercial conversations — not just brand ones.",
+      good:"Your leadership team sees brand as a business driver, not a marketing cost. That framing changes what's possible — in investment decisions, in cross-functional alignment, and in how the whole organisation talks about value."
+    },
+    questions:[
+      {
+        text:"How does your senior leadership team connect brand investment to business performance — revenue, retention, acquisition?",
+        hint:"DO THEY ACTUALLY MAKE THIS CONNECTION?", hintStyle:"grunge", type:"cards4",
+        opts:[
+          {e:"🤷",l:"They don't\nreally",d:"Brand and business are separate",s:1},
+          {e:"🔁",l:"Loosely,\nsometimes",d:"Mentioned but not measured",s:2},
+          {e:"📈",l:"Regularly,\nmost leaders",d:"Part of performance conversations",s:3},
+          {e:"💡",l:"Clear and\nconsistent",d:"Brand ROI is tracked and owned",s:4}
+        ]
+      },
+      {
+        text:"When design, marketing, or experience decisions are made, who's at the table — and are commercial outcomes part of the conversation?",
+        hint:"THE TABLE TELLS YOU EVERYTHING.", hintStyle:"grunge", type:"cards4",
+        opts:[
+          {e:"🎨",l:"Creative\nteam only",d:"No commercial lens",s:1},
+          {e:"📣",l:"Creative\nplus comms",d:"Still in the brand bubble",s:2},
+          {e:"🏢",l:"Cross-\nfunctional",d:"Multiple voices, mixed agenda",s:3},
+          {e:"💰",l:"Cross-functional\n+ commercial",d:"Brand and business aligned",s:4}
+        ]
+      },
+      {
+        text:"How comfortable is your leadership team talking about brand as a driver of long-term business value — not just aesthetics?",
+        hint:"THIS IS THE REAL TEST OF BRAND MATURITY.", hintStyle:"stamp", type:"slider",
+        opts:["Brand = logos","Starting to get it","Mostly get it","Brand = business strategy"]
+      }
+    ]
+  },
+  {
+    id:6,
+    title:"Change Readiness",
+    sub:"Change programmes succeed or fail based on what happens before the launch.",
+    desc:"How an organisation handles change says everything about its culture. The same patterns that derail an ERP rollout will derail a brand refresh. This section looks at whether change is done to your people or with them — and what that means for brand adoption.",
+    resultText:{
+      crit:"Change is being done to your people, not with them. That pattern predicts low adoption, quiet resistance, and initiatives that don't stick. A brand that can't land change internally struggles to sustain it externally.",
+      watch:"Communication happens — but involvement comes too late. Frontline teams are receivers of change, not contributors to it. That distance creates compliance without conviction.",
+      track:"The foundations of change readiness are solid. Earlier involvement and stronger follow-through measurement would significantly improve adoption — and reduce the rework that often follows launches.",
+      good:"Change is handled in a way that builds trust rather than eroding it. That's a genuine organisational capability — and it shows in how your brand lands, embeds, and stays consistent over time."
+    },
+    questions:[
+      {
+        text:"When your organisation has introduced a significant change — new system, new structure, new brand — how did people first hear about it?",
+        hint:"HOW PEOPLE FIND OUT TELLS YOU HOW MUCH THEY'RE TRUSTED.", hintStyle:"grunge", type:"cards4",
+        opts:[
+          {e:"🌿",l:"Grapevine\nor rumour",d:"Found out through the corridors",s:1},
+          {e:"📧",l:"Email after\nthe fact",d:"Informed, not involved",s:2},
+          {e:"📺",l:"Town hall\nor formal comms",d:"Communicated well, not early",s:3},
+          {e:"🤲",l:"Involved\nfrom the start",d:"Co-designed or consulted",s:4}
+        ]
+      },
+      {
+        text:"At what point do frontline teams typically get involved in change that affects how they work?",
+        hint:"THINK ABOUT YOUR LAST MAJOR CHANGE.", hintStyle:"stamp", type:"slider",
+        opts:["After it's live","Near launch","During rollout","During planning"]
+      },
+      {
+        text:"After a change is implemented, what does follow-through look like — and how is adoption actually measured?",
+        hint:"LAUNCH IS NOT THE FINISH LINE.", hintStyle:"grunge", type:"cards2",
+        opts:[
+          {e:"🏃",l:"It's not\nreally tracked",d:"Launch = done",s:1},
+          {e:"📏",l:"Clear measurement\nplan in place",d:"Adoption is tracked and owned",s:4}
+        ]
+      }
+    ]
+  },
+  {
+    id:7,
+    title:"Brand in Practice",
+    sub:"The gap between brand strategy and brand execution is where most brands quietly break.",
+    desc:"A brand strategy that lives in a PDF is not a brand strategy — it's a document. This section looks at how your brand actually shows up in the work: how guidance reaches teams, how agencies engage with it, and how consistent the output feels across touchpoints.",
+    resultText:{
+      crit:"There's a meaningful gap between your brand strategy and what actually gets produced. At this level, brand is more aspiration than operation — and external audiences are experiencing the difference.",
+      watch:"Brand guidance exists but isn't consistently landing. The risk: your brand is being reinterpreted by whoever's making the thing, not guided by what the brand actually needs. Inconsistency compounds quietly.",
+      track:"Brand discipline is real — but there's drift at the edges. Agencies, channels, and context are creating variation that accumulates over time. Closing those gaps is usually simpler than it looks.",
+      good:"Your brand operates consistently in practice. Strategy reaches execution, guidelines are used not just filed, and agencies are genuinely working from your strategy. That consistency is what makes brand equity compound."
+    },
+    questions:[
+      {
+        text:"How does your marketing team receive and activate brand guidance — and how consistent is the output across campaigns?",
+        hint:"THE OUTPUT DOESN'T LIE.", hintStyle:"grunge", type:"cards4",
+        opts:[
+          {e:"🎲",l:"No guidance,\nvery inconsistent",d:"Freelance interpretation",s:1},
+          {e:"📁",l:"Guidelines exist,\noften ignored",d:"Exists but not embedded",s:2},
+          {e:"✅",l:"Guidelines\nfollowed mostly",d:"Good discipline, some drift",s:3},
+          {e:"🌟",l:"Consistent,\nbrand-led output",d:"Brand is the creative filter",s:4}
+        ]
+      },
+      {
+        text:"When external agencies work on briefs, are they working from your brand strategy — or building their own interpretation?",
+        hint:"THIS IS ABOUT WHAT ACTUALLY GETS HANDED OVER.", hintStyle:"grunge", type:"cards2",
+        opts:[
+          {e:"🏗️",l:"Building their\nown interpretation",d:"Strategy doesn't reach them",s:1},
+          {e:"📘",l:"Working from\nour strategy",d:"Fully briefed and embedded",s:4}
+        ]
+      },
+      {
+        text:"How often does your tone of voice, visual identity, or messaging feel noticeably different across channels?",
+        hint:"THINK ABOUT YOUR LAST AUDIT. OR DO ONE NOW.", hintStyle:"stamp", type:"slider",
+        opts:["Very often","Often","Occasionally","Rarely"]
+      }
+    ]
+  },
+  {
+    id:8,
+    title:"Brand in an AI World",
+    sub:"If you're not thinking about AI as an audience, you're already behind.",
+    desc:"AI tools — search engines, chatbots, recommendation engines, LLMs — are increasingly mediating how audiences encounter your brand. Most brands haven't considered this. The ones that do are building a meaningful advantage in how they're found, described, and trusted.",
+    resultText:{
+      crit:"AI tools are describing your brand without your input. That's a reputational surface you don't control — and it's growing. The organisations that get ahead of this now will have a structural advantage within two to three years.",
+      watch:"Awareness is there, but action isn't. The window to get ahead of this is narrowing. The good news: the gap between awareness and action is smaller than it looks — structured language and source authority are the starting point.",
+      track:"You're thinking about AI representation and starting to act on it. Now it's about making it systematic: language architecture, structured data, and consistent source authority across channels.",
+      good:"You're ahead of most organisations on this. AI-readiness is becoming brand infrastructure, and you're treating it like one. The compounding effect of this will become more visible over the next 18–24 months."
+    },
+    questions:[
+      {
+        text:"Has your organisation considered how AI tools — search engines, chatbots, recommendation engines — describe or represent your brand?",
+        hint:"MOST HAVEN'T. BE HONEST.", hintStyle:"grunge", type:"cards4",
+        opts:[
+          {e:"😶",l:"Never\nthought about it",d:"Not on the radar",s:1},
+          {e:"🤔",l:"Vaguely\naware it matters",d:"Discussed but not acted on",s:2},
+          {e:"💬",l:"Discussed,\nsome action",d:"Starting to address it",s:3},
+          {e:"⚙️",l:"Actively\nmanaging it",d:"AI representation is owned",s:4}
+        ]
+      },
+      {
+        text:"Are your brand's language, tone, and key messages written in a way that AI can accurately interpret and surface?",
+        hint:"THIS IS THE NEW BRAND HYGIENE.", hintStyle:"stamp", type:"slider",
+        opts:["Not considered","Partially addressed","Mostly covered","Fully optimised"]
+      },
+      {
+        text:"When you think about your brand reputation, are you tracking what people and machines are saying about you?",
+        hint:"BOTH MATTER NOW.", hintStyle:"grunge", type:"slider",
+        opts:["Not tracking either","People only","Both, occasionally","Comprehensive tracking"]
+      }
+    ]
+  },
+  {
+    id:9,
+    title:"Brand as a Living System",
+    sub:"Guidelines tell people what to do. A brand operating system helps them think.",
+    desc:"Most brands have guidelines. Few have a way of thinking. When your brand is a set of rules, it breaks the moment someone faces a situation the guidelines didn't anticipate. When it's a way of thinking, it scales — across teams, channels, and contexts you haven't even encountered yet.",
+    resultText:{
+      crit:"Your brand is a document, not a capability. When the guidelines are the brand, every untested situation is a risk — and every new channel, product, or context is a potential inconsistency.",
+      watch:"There are rules — but not yet a way of thinking. The gap shows up when teams face situations the guidelines didn't anticipate, or when someone new joins and learns the rules without understanding the reasoning.",
+      track:"You're moving from compliance to conviction. The next step is embedding brand thinking deeply enough that it scales without supervision — so people can make good decisions in contexts the guidelines never covered.",
+      good:"Your brand operates as a system, not a set of rules. People can make good brand decisions because they understand the thinking behind it — not just the templates. That's the highest form of brand maturity."
+    },
+    questions:[
+      {
+        text:"Does your brand have a set of rules, or a way of thinking — and do people know the difference?",
+        hint:"RULES TELL PEOPLE WHAT. THINKING TELLS THEM WHY.", hintStyle:"stamp", type:"cards4",
+        opts:[
+          {e:"📜",l:"Rules only,\nrarely followed",d:"Compliance without conviction",s:1},
+          {e:"📋",l:"Rules,\nsometimes followed",d:"Applied when convenient",s:2},
+          {e:"🧭",l:"Rules plus\nprinciples",d:"Starting to build brand thinking",s:3},
+          {e:"🧠",l:"A way of thinking,\nfully embedded",d:"Brand is how decisions get made",s:4}
+        ]
+      },
+      {
+        text:"When a new product, service, or channel is introduced, how is the brand applied?",
+        hint:"THIS IS WHERE MOST BRANDS DRIFT.", hintStyle:"grunge", type:"cards4",
+        opts:[
+          {e:"🤷",l:"Pure\ngut feel",d:"Brand is an afterthought",s:1},
+          {e:"📖",l:"Someone checks\nthe guidelines",d:"Reference, not process",s:2},
+          {e:"🔍",l:"Guidelines plus\nbrand review",d:"Structured but not embedded",s:3},
+          {e:"⚙️",l:"Structured\nbrand process",d:"Brand is part of the launch workflow",s:4}
+        ]
+      },
+      {
+        text:"If your brand guidelines disappeared tomorrow, could your team still make good brand decisions? What would guide them?",
+        hint:"THIS IS THE REAL TEST.", hintStyle:"grunge", type:"cards2",
+        opts:[
+          {e:"😰",l:"No — we'd\nbe lost",d:"Guidelines are the brand",s:1},
+          {e:"💡",l:"Yes — brand\nthinking is embedded",d:"The team carries it",s:4}
+        ]
+      }
+    ]
+  },
+  {
+    id:10,
+    title:"Where Brand Breaks Down",
+    sub:"The most honest diagnostics start with failure, not aspiration.",
+    desc:"Every brand has breakpoints — moments where the promise and the reality diverge. Most organisations know where these are, but rarely examine them directly. Naming them is the first step to closing them.",
+    resultText:{
+      crit:"The gap between brand promise and brand delivery is significant and felt by customers. This is the dimension where brand strategy most visibly fails — not in the boardroom, but in the moments that matter.",
+      watch:"There are known breakpoints in your brand experience, and some honest reckoning with over-promise. The value is in naming the highest-cost gaps clearly and prioritising them — not explaining them away.",
+      track:"A few gaps, mostly understood. The discipline now is closing them consistently rather than managing them. Customers notice the gaps more than you do — which means they're likely more costly than they appear.",
+      good:"Your brand delivers on its promise more often than not, and there's honest awareness of where it doesn't. That combination — strong delivery and clear-eyed gap analysis — is what sustainable brand performance looks like."
+    },
+    questions:[
+      {
+        text:"Where in your customer's experience does your brand feel most inconsistent — or most absent?",
+        hint:"YOU PROBABLY ALREADY KNOW THE ANSWER.", hintStyle:"grunge", type:"cards4",
+        opts:[
+          {e:"💔",l:"At nearly\nevery touchpoint",d:"Inconsistency is the norm",s:1},
+          {e:"⚠️",l:"In several\nkey areas",d:"Clear gaps in multiple places",s:2},
+          {e:"📍",l:"A few\nspecific spots",d:"Known and being addressed",s:3},
+          {e:"✅",l:"Mostly\nconsistent",d:"Strong delivery across the journey",s:4}
+        ]
+      },
+      {
+        text:"Has your brand ever promised something the business couldn't deliver? What happened?",
+        hint:"EVERY BRAND HAS A STORY LIKE THIS.", hintStyle:"grunge", type:"cards2",
+        opts:[
+          {e:"🔁",l:"Yes — regularly,\nand it shows",d:"Over-promise is a pattern",s:1},
+          {e:"📚",l:"Rarely — and\nwe learn from it",d:"Exceptions, not the rule",s:4}
+        ]
+      },
+      {
+        text:"If you were a customer, where would you feel the gap between what your brand says and what it actually does?",
+        hint:"THE HONEST ANSWER IS THE USEFUL ONE.", hintStyle:"stamp", type:"slider",
+        opts:["Everywhere","In several places","A couple of places","Nowhere significant"]
+      }
+    ]
+  }
+];
+
+/* ─────────────────────────────────────────────
+   STATE
+───────────────────────────────────────────── */
+let current = 's-landing';
+let scores  = {};
+let qMap    = {};
+
+/* ─────────────────────────────────────────────
+   BUILD SCREENS
+───────────────────────────────────────────── */
+function build() {
+  const dyn  = document.getElementById('dyn');
+  let   gNum = 0;
+
+  TENSIONS.forEach((t, tIdx) => {
+    const tid    = `s-t${t.id}`;
+    const firstQ = `sq-${t.id}-1`;
+
+    dyn.insertAdjacentHTML('beforeend', `
+      <div class="screen s-tension" id="${tid}">
+        <div class="wrap">
+          <div class="t-eyebrow">DIMENSION ${t.id} OF 10</div>
+          <h2 class="t-title">${t.title}</h2>
+          <p class="t-subtitle">${t.sub}</p>
+          <p class="t-desc">${t.desc}</p>
+          <button class="btn btn-ghost" onclick="nav('${firstQ}')">Let's Go</button>
+        </div>
+      </div>
+    `);
+
+    t.questions.forEach((q, qIdx) => {
+      gNum++;
+      const sid     = `sq-${t.id}-${qIdx + 1}`;
+      const isLastQ = qIdx === t.questions.length - 1;
+      const isLastT = tIdx === TENSIONS.length - 1;
+      const nextId  = isLastQ
+        ? (isLastT ? 's-results' : `s-t${TENSIONS[tIdx + 1].id}`)
+        : `sq-${t.id}-${qIdx + 2}`;
+
+      qMap[sid] = { tIdx, qIdx, tensionId: t.id, gNum };
+      dyn.insertAdjacentHTML('beforeend', buildQ(sid, q, gNum, nextId));
+    });
+  });
+
+  // Initialise all slider scores to 3 (middle = position 2 = score 3)
+  Object.keys(qMap).forEach(sid => {
+    const info = qMap[sid];
+    const q    = TENSIONS[info.tIdx].questions[info.qIdx];
+    if (q.type === 'slider') saveScore(sid, 3);
+  });
+}
+
+function buildQ(sid, q, gNum, nextId) {
+  const hint = q.hintStyle === 'grunge'
+    ? `<div class="q-sub-grunge">${q.hint}</div>`
+    : `<div class="q-sub-stamp">${q.hint}</div>`;
+
+  let inp = '';
+
+  if (q.type === 'cards4') {
+    const cards = q.opts.map((o, i) => `
+      <div class="card4" id="${sid}-c${i}" onclick="pickCard('${sid}','cards4',${i},${o.s},'${nextId}')">
+        <div class="c4-icon">${o.e}</div>
+        <div class="c4-label">${o.l.replace(/\n/g,'<br>')}</div>
+        <div class="c4-desc">${o.d}</div>
+      </div>`).join('');
+    inp = `<div class="grid4" id="${sid}-grid">${cards}</div>`;
+
+  } else if (q.type === 'cards2') {
+    const cards = q.opts.map((o, i) => `
+      <div class="card2" id="${sid}-c${i}" onclick="pickCard('${sid}','cards2',${i},${o.s},'${nextId}')">
+        <div class="c2-icon">${o.e}</div>
+        <div class="c2-label">${o.l.replace(/\n/g,'<br>')}</div>
+      </div>`).join('');
+    inp = `<div class="grid2" id="${sid}-grid">${cards}</div>`;
+
+  } else {
+    // Sliders default to position 2 (middle), score 3
+    const lbls = q.opts.map((l, i) =>
+      `<span class="sl-lbl${i===2?' on':''}" id="${sid}-sl${i}">${l}</span>`).join('');
+    inp = `
+      <div class="slider-box">
+        <input type="range" min="0" max="3" value="2" id="${sid}-rng"
+          oninput="moveSlider('${sid}')" onchange="moveSlider('${sid}')">
+        <div class="slider-labels">${lbls}</div>
+      </div>
+      <div class="slider-val" id="${sid}-val">${q.opts[2]}</div>
+      <button class="btn-next" onclick="sliderNext('${sid}','${nextId}')">Next</button>`;
+  }
+
+  return `
+    <div class="screen s-q" id="${sid}">
+      <div class="wrap">
+        <div class="q-counter">QUESTION ${gNum} OF 30</div>
+        <h3 class="q-title">${q.text}</h3>
+        ${hint}
+        ${inp}
+      </div>
+    </div>`;
+}
+
+/* ─────────────────────────────────────────────
+   NAVIGATION
+───────────────────────────────────────────── */
+function nav(id) {
+  document.getElementById(current).classList.remove('active');
+  document.getElementById(id).classList.add('active');
+  current = id;
+  window.scrollTo(0, 0);
+  updateBar(id);
+  if (id === 's-results') renderResults();
+}
+
+function updateBar(id) {
+  const bar  = document.getElementById('prog');
+  const fill = document.getElementById('prog-fill');
+  if (['s-landing','s-intro1','s-intro2'].includes(id)) { bar.style.display='none'; return; }
+  bar.style.display = 'block';
+  if (qMap[id])              fill.style.width = `${(qMap[id].gNum / 30) * 100}%`;
+  else if (id==='s-results') fill.style.width = '100%';
+}
+
+function startQuiz() { nav('s-t1'); }
+
+/* ─────────────────────────────────────────────
+   INTERACTIONS
+───────────────────────────────────────────── */
+function pickCard(sid, type, idx, score, nextId) {
+  const grid  = document.getElementById(`${sid}-grid`);
+  const cards = grid.querySelectorAll('.card4, .card2');
+  cards.forEach((c, i) => {
+    c.classList.remove('sel','dim');
+    c.classList.add(i === idx ? 'sel' : 'dim');
+  });
+  saveScore(sid, score);
+  setTimeout(() => nav(nextId), 420);
+}
+
+function moveSlider(sid) {
+  const info = qMap[sid];
+  if (!info) return;
+  const q   = TENSIONS[info.tIdx].questions[info.qIdx];
+  const val = parseInt(document.getElementById(`${sid}-rng`).value);
+  document.getElementById(`${sid}-val`).textContent = q.opts[val];
+  q.opts.forEach((_, i) => {
+    document.getElementById(`${sid}-sl${i}`).classList.toggle('on', i === val);
+  });
+  saveScore(sid, val + 1);
+}
+
+function sliderNext(sid, nextId) {
+  const val = parseInt(document.getElementById(`${sid}-rng`).value);
+  saveScore(sid, val + 1);
+  nav(nextId);
+}
+
+/* ─────────────────────────────────────────────
+   SCORING
+───────────────────────────────────────────── */
+function saveScore(sid, score) {
+  const { tensionId, qIdx } = qMap[sid];
+  if (!scores[tensionId]) scores[tensionId] = [];
+  scores[tensionId][qIdx] = score;
+}
+
+function tensionTotal(tid) {
+  return (scores[tid] || []).reduce((a, v) => a + (v || 0), 0);
+}
+
+function grandTotal() {
+  return TENSIONS.reduce((a, t) => a + tensionTotal(t.id), 0);
+}
+
+// Per-tension max = 3 × 4 = 12
+function rating(score) {
+  if (score <= 4)  return { label:"🔴 Needs Attention",   cls:"r-crit",  badgeCls:"rb-crit",  barCls:"bf-crit",  key:"crit"  };
+  if (score <= 7)  return { label:"🟠 Watch Out",          cls:"r-watch", badgeCls:"rb-watch", barCls:"bf-watch", key:"watch" };
+  if (score <= 10) return { label:"🟡 Getting There",      cls:"r-track", badgeCls:"rb-track", barCls:"bf-track", key:"track" };
+  return               { label:"🟢 Strong Foundation",     cls:"r-good",  badgeCls:"rb-good",  barCls:"bf-good",  key:"good"  };
+}
+
+/* ─────────────────────────────────────────────
+   RESULTS
+───────────────────────────────────────────── */
+function overallMsg(total) {
+  if (total <= 40) return {
+    h:"Significant foundations to build.",
+    p:"There are meaningful gaps across several brand dimensions. This isn't a verdict — it's useful data. The brands that get this right don't do everything at once; they prioritise the dimensions with the highest cost and close them deliberately."
+  };
+  if (total <= 70) return {
+    h:"Solid in places. Vulnerable in others.",
+    p:"You have real strengths here — and some areas that are quietly costing you. The red and orange dimensions are where brand performance is most at risk. Addressing them will have the highest return."
+  };
+  if (total <= 95) return {
+    h:"Good foundations. Worth refining.",
+    p:"You're in a strong position. Most of the fundamentals are working — but there are details in a few dimensions that, if tightened, would significantly lift consistency and brand performance."
+  };
+  return {
+    h:"Strong brand foundations across the board.",
+    p:"Your brand is well-embedded and well-managed across most dimensions. The opportunity now is to go from good to exceptional — and to future-proof your approach, particularly in newer areas like AI and brand as a living system."
+  };
+}
+
+function renderResults() {
+  const total = grandTotal();
+  const msg   = overallMsg(total);
+
+  const rows = TENSIONS.map(t => {
+    const s    = tensionTotal(t.id);
+    const r    = rating(s);
+    const pct  = Math.round((s / 12) * 100);
+    const text = t.resultText[r.key];
+    return `
+      <div class="t-row">
+        <div class="t-row-top">
+          <div class="t-row-info">
+            <div class="t-row-name">${t.id}. ${t.title}</div>
+            <div class="bar-bg"><div class="bar-fg ${r.barCls}" id="bf-${t.id}" style="width:0%"></div></div>
+          </div>
+          <div class="t-score ${r.cls}">${s}<span style="font-size:.6rem;opacity:.6">/12</span></div>
+          <div class="t-badge ${r.badgeCls}">${r.label}</div>
+        </div>
+        <div class="t-row-insight">${text}</div>
+      </div>`;
+  }).join('');
+
+  document.getElementById('results-wrap').innerHTML = `
+    <div class="results-hd">
+      <h2>Your Brand Reality Check</h2>
+      <p>Here's an honest picture of how your brand performs across 10 key dimensions.</p>
+    </div>
+    <div class="overall-box">
+      <div class="score-bubble">
+        <div class="score-num">${total}</div>
+        <div class="score-sub">out of 120</div>
+      </div>
+      <div class="overall-msg">
+        <h3>${msg.h}</h3>
+        <p>${msg.p}</p>
+      </div>
+    </div>
+    <div class="t-rows">${rows}</div>
+    <div class="cta-box">
+      <h3>Want our take on your results?</h3>
+      <p>FutureBrand helps organisations close the gap between brand strategy and brand reality. If you'd like a conversation about what these results mean for your organisation — no pitch, no pressure.</p>
+      <a href="mailto:hello@futurebrand.com?subject=Brand Reality Check — I'd like to talk through my results" class="btn btn-ghost">Get in touch with FutureBrand</a>
+    </div>
+    <div class="results-footer">
+      <svg class="fb-mono" viewBox="0 0 38 46" xmlns="http://www.w3.org/2000/svg" fill="#000">
+        <circle cx="6.5" cy="6.5" r="5.5"/>
+        <circle cx="19"  cy="6.5" r="5.5"/>
+        <circle cx="31.5" cy="6.5" r="5.5"/>
+        <circle cx="6.5" cy="23" r="5.5"/>
+        <circle cx="19"  cy="23" r="5.5"/>
+        <circle cx="6.5" cy="39.5" r="5.5"/>
+      </svg>
+      <span class="fb-wordmark">FutureBrand</span>
+    </div>
+  `;
+
+  setTimeout(() => {
+    TENSIONS.forEach(t => {
+      const pct = Math.round((tensionTotal(t.id) / 12) * 100);
+      const el  = document.getElementById(`bf-${t.id}`);
+      if (el) el.style.width = pct + '%';
+    });
+  }, 120);
+}
+
+/* ─────────────────────────────────────────────
+   INIT
+───────────────────────────────────────────── */
+build();
+</script>
+</body>
+</html>
